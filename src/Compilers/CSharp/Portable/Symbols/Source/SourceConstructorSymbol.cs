@@ -204,6 +204,10 @@ namespace Microsoft.CodeAnalysis.CSharp.Symbols
             {
                 diagnostics.Add(ErrorCode.ERR_PartialMemberOnlyInPartialClass, location);
             }
+            else if (methodKind is MethodKind.Constructor or MethodKind.StaticConstructor && this.IsConsteval)
+            {
+                diagnostics.Add(ErrorCode.ERR_NoConstevalConstructor, location);
+            }
         }
 
 #nullable enable

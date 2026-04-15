@@ -97,6 +97,12 @@ namespace Microsoft.CodeAnalysis.CSharp.Symbols
                         diagnostics.Add(ErrorCode.ERR_StaticNotVirtual, errorLocation, ModifierUtils.ConvertSingleModifierToSyntaxText(oneError));
                         break;
 
+                    //consteval support is limited to subset of callable entities (e.g. member methods,static methods,local functions, etc...)
+                    //so in most cases it's not valid and we want to report a specific error message for it
+                    case DeclarationModifiers.Consteval:
+                        diagnostics.Add(ErrorCode.ERR_BadConstevalItem, errorLocation);
+                        break;
+
                     default:
                         diagnostics.Add(ErrorCode.ERR_BadMemberFlag, errorLocation, ConvertSingleModifierToSyntaxText(oneError));
                         break;
@@ -350,6 +356,8 @@ namespace Microsoft.CodeAnalysis.CSharp.Symbols
                     return SyntaxFacts.GetText(SyntaxKind.ScopedKeyword);
                 case DeclarationModifiers.File:
                     return SyntaxFacts.GetText(SyntaxKind.FileKeyword);
+                case DeclarationModifiers.Consteval:
+                    return SyntaxFacts.GetText(SyntaxKind.ConstevalKeyword);
                 default:
                     throw ExceptionUtilities.UnexpectedValue(modifier);
             }
@@ -403,6 +411,8 @@ namespace Microsoft.CodeAnalysis.CSharp.Symbols
                     return DeclarationModifiers.Scoped;
                 case SyntaxKind.FileKeyword:
                     return DeclarationModifiers.File;
+                case SyntaxKind.ConstevalKeyword:
+                    return DeclarationModifiers.Consteval;
                 default:
                     throw ExceptionUtilities.UnexpectedValue(kind);
             }

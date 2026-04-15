@@ -700,6 +700,14 @@ namespace Microsoft.CodeAnalysis.CSharp.Symbols
             }
         }
 
+        public sealed override bool IsConsteval
+        {
+            get
+            {
+                return (this.DeclarationModifiers & DeclarationModifiers.Consteval) != 0;
+            }
+        }
+
         internal override bool IsDeclaredReadOnly
         {
             get

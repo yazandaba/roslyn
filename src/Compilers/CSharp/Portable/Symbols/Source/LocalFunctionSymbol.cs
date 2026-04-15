@@ -146,6 +146,12 @@ namespace Microsoft.CodeAnalysis.CSharp.Symbols
 
             AsyncMethodChecks(addTo);
 
+            if (this.IsConsteval)
+            {
+                ConstevalFunctionValidator constevalFunctionValidator = new ConstevalFunctionValidator(addTo);
+                constevalFunctionValidator.ValidateSignature(this);
+            }
+
             var diagnostics = BindingDiagnosticBag.GetInstance(withDiagnostics: false, withDependencies: addTo.AccumulatesDependencies);
             if (IsEntryPointCandidate && !IsGenericMethod &&
                 ContainingSymbol is SynthesizedSimpleProgramEntryPointSymbol &&
@@ -171,6 +177,8 @@ namespace Microsoft.CodeAnalysis.CSharp.Symbols
         }
 
         public override bool RequiresInstanceReceiver => false;
+
+        public override bool IsConsteval => (_declarationModifiers & DeclarationModifiers.Consteval) != 0;
 
         public override bool IsVararg
         {

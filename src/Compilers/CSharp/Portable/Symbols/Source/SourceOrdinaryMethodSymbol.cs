@@ -347,6 +347,18 @@ namespace Microsoft.CodeAnalysis.CSharp.Symbols
             }
         }
 
+        /// <summary>
+        /// True if this method is consteval and has a body
+        /// </summary>
+        internal bool IsConstevalImplementation
+        {
+            get
+            {
+                return this.IsConsteval && HasAnyBody;
+            }
+        }
+
+
         internal SourceOrdinaryMethodSymbol SourcePartialDefinition
         {
             get
@@ -752,7 +764,8 @@ namespace Microsoft.CodeAnalysis.CSharp.Symbols
 
                     if (!isInterface)
                     {
-                        allowedModifiers |= DeclarationModifiers.Override;
+                        allowedModifiers |= DeclarationModifiers.Override |
+                                            DeclarationModifiers.Consteval;
                     }
                     else
                     {
@@ -950,6 +963,15 @@ namespace Microsoft.CodeAnalysis.CSharp.Symbols
             else if (isVararg && IsAsync)
             {
                 diagnostics.Add(ErrorCode.ERR_VarargsAsync, location);
+            }
+            else if (IsConsteval)
+            {
+                if (!HasAnyBody)
+                {
+                    diagnostics.Add(ErrorCode.ERR_ConstevalHasNoBody, location);
+                }
+                var constevalValidator = new ConstevalFunctionValidator(diagnostics);
+                constevalValidator.ValidateSignature(this);
             }
         }
 
