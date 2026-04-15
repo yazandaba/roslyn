@@ -1348,6 +1348,8 @@ namespace Microsoft.CodeAnalysis.CSharp.Syntax.InternalSyntax
                             return DeclarationModifiers.Required;
                         case SyntaxKind.FileKeyword:
                             return DeclarationModifiers.File;
+                        case SyntaxKind.ConstevalKeyword:
+                            return DeclarationModifiers.Consteval;
                     }
 
                     goto default;
@@ -8536,7 +8538,7 @@ done:
 
             var isPossibleModifier =
                 IsAdditionalLocalFunctionModifier(tk)
-                && (tk is not (SyntaxKind.AsyncKeyword or SyntaxKind.ScopedKeyword) || ShouldContextualKeywordBeTreatedAsModifier(parsingStatementNotDeclaration: true));
+                && (tk is not (SyntaxKind.AsyncKeyword or SyntaxKind.ScopedKeyword or SyntaxKind.ConstevalKeyword) || ShouldContextualKeywordBeTreatedAsModifier(parsingStatementNotDeclaration: true));
             if (isPossibleModifier)
             {
                 return true;
@@ -10882,6 +10884,7 @@ done:
                 case SyntaxKind.AsyncKeyword:
                 case SyntaxKind.UnsafeKeyword:
                 case SyntaxKind.ExternKeyword:
+                case SyntaxKind.ConstevalKeyword:
                 // Not a valid modifier, but we should parse to give a good
                 // error message
                 case SyntaxKind.PublicKeyword:
@@ -10954,6 +10957,9 @@ done:
                     case SyntaxKind.StaticKeyword:
                         continue;
                     case SyntaxKind.ExternKeyword:
+                        continue;
+                    case SyntaxKind.ConstevalKeyword:
+                        forceLocalFunc = true;
                         continue;
                     default:
                         modifier = this.AddError(modifier, ErrorCode.ERR_BadMemberFlag, modifier.Text);
