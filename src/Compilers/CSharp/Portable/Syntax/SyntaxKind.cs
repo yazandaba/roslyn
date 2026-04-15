@@ -429,6 +429,8 @@ namespace Microsoft.CodeAnalysis.CSharp
         /// <summary>Represents <see langword="union"/>.</summary>
         [Experimental("RSEXPERIMENTAL006", UrlFormat = "https://github.com/dotnet/roslyn/issues/82567")]
         UnionKeyword = 8452,
+        [Experimental("RSEXPERIMENTAL007")]
+        ConstevalKeyword = 8453,
 
         // when adding a contextual keyword following functions must be adapted:
         // <see cref="SyntaxFacts.GetContextualKeywordKinds()"/>
