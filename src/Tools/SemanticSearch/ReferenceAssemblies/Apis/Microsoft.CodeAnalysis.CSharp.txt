@@ -5849,6 +5849,7 @@ Microsoft.CodeAnalysis.CSharp.SyntaxKind.ConditionalExpression
 Microsoft.CodeAnalysis.CSharp.SyntaxKind.ConflictMarkerTrivia
 Microsoft.CodeAnalysis.CSharp.SyntaxKind.ConstKeyword
 Microsoft.CodeAnalysis.CSharp.SyntaxKind.ConstantPattern
+Microsoft.CodeAnalysis.CSharp.SyntaxKind.ConstevalKeyword
 Microsoft.CodeAnalysis.CSharp.SyntaxKind.ConstructorConstraint
 Microsoft.CodeAnalysis.CSharp.SyntaxKind.ConstructorDeclaration
 Microsoft.CodeAnalysis.CSharp.SyntaxKind.ContinueKeyword
