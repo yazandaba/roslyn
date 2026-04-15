@@ -1219,6 +1219,11 @@ namespace Microsoft.CodeAnalysis.CSharp
 
                 try
                 {
+                    if (methodSymbol.IsConsteval)
+                    {
+                        return; //consteval methods do not get emitted because they are compile-time-only constructs
+                    }
+
                     if (hasBody)
                     {
                         loweredBodyOpt = LowerBodyOrInitializer(

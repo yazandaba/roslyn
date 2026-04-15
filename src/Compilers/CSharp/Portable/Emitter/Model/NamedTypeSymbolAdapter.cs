@@ -1044,7 +1044,8 @@ namespace Microsoft.CodeAnalysis.CSharp.Symbols
                 if (m.Kind == SymbolKind.Method)
                 {
                     var method = (MethodSymbol)m;
-                    if (method.ShouldEmit())
+                    //consteval functions are not part of PE metadata 
+                    if (!method.IsConsteval && method.ShouldEmit())
                     {
                         yield return method;
                     }
