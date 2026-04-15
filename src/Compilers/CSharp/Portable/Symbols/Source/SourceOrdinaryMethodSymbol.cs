@@ -944,6 +944,15 @@ namespace Microsoft.CodeAnalysis.CSharp.Symbols
             {
                 diagnostics.Add(ErrorCode.ERR_BadAsyncLacksBody, location);
             }
+            else if (IsConsteval)
+            {
+                if (!HasAnyBody)
+                {
+                    diagnostics.Add(ErrorCode.ERR_ConstevalHasNoBody, location);
+                }
+                var constevalValidator = new ConstevalFunctionValidator(diagnostics);
+                constevalValidator.ValidateSignature(this);
+            }
             else if (!HasAnyBody && !IsExtern && !IsAbstract && !IsPartial && !IsExpressionBodied)
             {
                 diagnostics.Add(ErrorCode.ERR_ConcreteMissingBody, location, this);
@@ -963,15 +972,6 @@ namespace Microsoft.CodeAnalysis.CSharp.Symbols
             else if (isVararg && IsAsync)
             {
                 diagnostics.Add(ErrorCode.ERR_VarargsAsync, location);
-            }
-            else if (IsConsteval)
-            {
-                if (!HasAnyBody)
-                {
-                    diagnostics.Add(ErrorCode.ERR_ConstevalHasNoBody, location);
-                }
-                var constevalValidator = new ConstevalFunctionValidator(diagnostics);
-                constevalValidator.ValidateSignature(this);
             }
         }
 
