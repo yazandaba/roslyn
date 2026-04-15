@@ -138,6 +138,7 @@ namespace Microsoft.CodeAnalysis.CSharp
                     invokedAsExtensionMethod,
                     default,
                     default,
+                    null,
                     boundCall.ResultKind,
                     originalMethodsOpt,
                     type);
