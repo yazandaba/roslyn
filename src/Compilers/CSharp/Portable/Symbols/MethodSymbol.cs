@@ -218,6 +218,12 @@ namespace Microsoft.CodeAnalysis.CSharp.Symbols
         public abstract bool IsAsync { get; }
 
         /// <summary>
+        /// Source: Return whether this method is consteval; i.e., does it have the consteval modifier?
+        /// Metadata: Returns false; consteval methods are trimmed before emitting and gets reduced to constants.
+        /// </summary>
+        public virtual bool IsConsteval => false;
+
+        /// <summary>
         /// Indicates whether or not the method returns by reference
         /// </summary>
         public bool ReturnsByRef

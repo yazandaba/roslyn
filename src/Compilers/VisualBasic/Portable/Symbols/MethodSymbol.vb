@@ -130,6 +130,12 @@ Namespace Microsoft.CodeAnalysis.VisualBasic.Symbols
         Public MustOverride ReadOnly Property IsAsync As Boolean
 
         ''' <summary>
+        ''' Source: Return whether this method Is consteval; i.e., does it have the consteval modifier?
+        ''' Metadata: Returns false; consteval methods are trimmed before emitting And gets reduced to constants.
+        ''' </summary>
+        Public Overridable ReadOnly Property IsConsteval As Boolean = False
+
+        ''' <summary>
         ''' Source: Returns whether this method is an iterator; i.e., does it have the Iterator modifier?
         ''' Metadata: Returns False; methods from metadata cannot be an iterator.
         ''' </summary>
