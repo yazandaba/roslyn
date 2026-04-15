@@ -1347,6 +1347,52 @@ namespace Microsoft.CodeAnalysis.CSharp
                 gotError = true;
             }
 
+            ConstantValue constevalResult = null;
+            if (method.IsConsteval && !gotError)
+            {
+                // Collect the constant value of each argument. All arguments must be compile-time
+                // constants for consteval evaluation to proceed.
+                var argConstantsBuilder = ArrayBuilder<ConstantValue>.GetInstance(args.Length);
+                bool allConstant = true;
+                foreach (BoundExpression arg in args)
+                {
+                    ConstantValue argConst = arg.ConstantValueOpt;
+                    if (argConst is null || argConst.IsBad)
+                    {
+                        allConstant = false;
+                        break;
+                    }
+                    argConstantsBuilder.Add(argConst);
+                }
+
+                if (allConstant)
+                {
+                    constevalResult = ConstevalInterpreter.TryEvaluate(
+                        method,
+                        argConstantsBuilder.ToImmutable(),
+                        this.Compilation,
+                        node.Location,
+                        diagnostics);
+
+                    if (constevalResult is null)
+                    {
+                        if (!method.ReturnType.IsVoidType())
+                        {
+                            // Body was available but returned no value (should not happen for non-void consteval).
+                            diagnostics.Add(ErrorCode.ERR_ConstevalEvaluationFailed, node.Location, method.Name);
+                            gotError = true;
+                        }
+                    }
+                    else if (constevalResult.IsBad)
+                    {
+                        // A hard error (recursion, divide-by-zero, etc.) was already reported.
+                        gotError = true;
+                    }
+                }
+
+                argConstantsBuilder.Free();
+            }
+
             Debug.Assert(args.IsDefaultOrEmpty || (object)receiver != (object)args[0]);
 
             bool isDelegateCall = (object)delegateTypeOpt != null;
@@ -1364,7 +1410,7 @@ namespace Microsoft.CodeAnalysis.CSharp
 
             return new BoundCall(node, receiver, initialBindingReceiverIsSubjectToCloning: ReceiverIsSubjectToCloning(receiver, method), method, args, argNames, argRefKinds, isDelegateCall: isDelegateCall,
                         expanded: expanded, invokedAsExtensionMethod: invokedAsExtensionMethod,
-                        argsToParamsOpt: argsToParams, defaultArguments, resultKind: LookupResultKind.Viable, type: returnType, hasErrors: gotError);
+                        argsToParamsOpt: argsToParams, defaultArguments, constantValueOpt: constevalResult, resultKind: LookupResultKind.Viable, type: returnType, hasErrors: gotError);
         }
 
 #nullable enable

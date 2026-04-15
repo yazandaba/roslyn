@@ -597,6 +597,19 @@ namespace Microsoft.CodeAnalysis.CSharp
             Symbol.CheckForBlockAndExpressionBody(
                 node.Body, node.ExpressionBody, node, diagnostics);
 
+            if (localSymbol.IsConsteval)
+            {
+                var constevalFunctionValidator = new ConstevalFunctionValidator(diagnostics);
+                if (blockBody is not null)
+                {
+                    hasErrors |= !constevalFunctionValidator.ValidateBody(blockBody);
+                }
+                else if (expressionBody is not null)
+                {
+                    hasErrors |= !constevalFunctionValidator.ValidateBody(expressionBody);
+                }
+            }
+
             foreach (var modifier in node.Modifiers)
             {
                 if (modifier.IsKind(SyntaxKind.StaticKeyword))
@@ -4107,12 +4120,34 @@ namespace Microsoft.CodeAnalysis.CSharp
             }
 
             // Using BindStatement to bind block to make sure we are reusing results of partial binding in SemanticModel
-            return new BoundNonConstructorMethodBody(declaration,
+            var body = new BoundNonConstructorMethodBody(declaration,
                                                      blockBody == null ? null : (BoundBlock)BindStatement(blockBody, diagnostics),
                                                      expressionBody == null ?
                                                          null :
                                                          BindExpressionBodyAsBlock(expressionBody,
                                                                                    blockBody == null ? diagnostics : BindingDiagnosticBag.Discarded));
+
+            if (body.HasErrors) //no need validate consteval if there are errors already
+            {
+                return body;
+            }
+
+            bool isConsteval = (declaration as MethodDeclarationSyntax)?.Modifiers
+                .Any(m => m.ContextualKind() == SyntaxKind.ConstevalKeyword) is true;
+            // Skip body validation when diagnostics are discarded (e.g. called from interpreter's GetBoundBody)
+            if (isConsteval && diagnostics.DiagnosticBag is not null)
+            {
+                var constevalFunctionValidator = new ConstevalFunctionValidator(diagnostics);
+                if (body.BlockBody is not null)
+                {
+                    constevalFunctionValidator.ValidateBody(body.BlockBody);
+                }
+                else if (body.ExpressionBody is not null)
+                {
+                    constevalFunctionValidator.ValidateBody(body.ExpressionBody);
+                }
+            }
+            return body;
         }
 
         internal virtual ImmutableArray<LocalSymbol> Locals
