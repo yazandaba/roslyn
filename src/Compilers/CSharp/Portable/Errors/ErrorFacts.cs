@@ -211,7 +211,6 @@ namespace Microsoft.CodeAnalysis.CSharp
             switch (code)
             {
                 case ErrorCode.WRN_RequiresUnsafeAttributeLegacyRules:
-                case ErrorCode.WRN_UnsafeMeaningless:
                     // Warning level 11 is exclusively for warnings introduced in the compiler
                     // shipped with dotnet 11 (C# 15) and that can be reported for pre-existing code.
                     return 11;
@@ -2590,6 +2589,40 @@ namespace Microsoft.CodeAnalysis.CSharp
                 or ErrorCode.ERR_UnionConstructorCallsDefaultConstructor
                 or ErrorCode.ERR_UnsafeConstructorConstraint
                 or ErrorCode.WRN_UnsafeMeaningless
+                or ErrorCode.ERR_BadConstevalItem
+                or ErrorCode.ERR_NoConstevalGenericMethod
+                or ErrorCode.ERR_NoConstevalConstructor
+                or ErrorCode.ERR_NoConstevalDestructor
+                or ErrorCode.ERR_ConstevalParameterMustBePrimitive
+                or ErrorCode.ERR_ConstevalReturnTypeMustBePrimitive
+                or ErrorCode.ERR_ConstevalParameterCannotBeRefOutIn
+                or ErrorCode.ERR_ConstevalParameterCannotBeParams
+                or ErrorCode.ERR_ConstevalParameterCannotBeDynamic
+                or ErrorCode.ERR_ConstevalReturnTypeCannotBeDynamic
+                or ErrorCode.ERR_ConstevalFunctionCannotBeAsync
+                or ErrorCode.ERR_ConstevalFunctionCannotBeUnsafe
+                or ErrorCode.ERR_ConstevalFunctionCannotBeGeneric
+                or ErrorCode.ERR_ConstevalLocalMustBePrimitive
+                or ErrorCode.ERR_ConstevalCannotReferenceGenericType
+                or ErrorCode.ERR_ConstevalCanOnlyAccessConstFields
+                or ErrorCode.ERR_ConstevalCannotUseNewExpression
+                or ErrorCode.ERR_ConstevalCannotUseTryCatchFinally
+                or ErrorCode.ERR_ConstevalCannotUseThrow
+                or ErrorCode.ERR_ConstevalUnsupportedControlFlow
+                or ErrorCode.ERR_ConstevalCanOnlyCallConsteval
+                or ErrorCode.ERR_ConstevalCannotUseUserDefinedOperator
+                or ErrorCode.ERR_ConstevalCannotUseTypeOf
+                or ErrorCode.ERR_ConstevalCannotUseSizeOf
+                or ErrorCode.ERR_ConstevalHasNoBody
+                or ErrorCode.ERR_ConstevalCannotBeExtern
+                or ErrorCode.ERR_ConstevalCannotBePartial
+                or ErrorCode.ERR_ConstevalCannotHavePolymorphicModifiers
+                or ErrorCode.ERR_ConstevalRecursionDepthExceeded
+                or ErrorCode.ERR_ConstevalLoopIterationLimitExceeded
+                or ErrorCode.ERR_ConstevalDivisionByZero
+                or ErrorCode.ERR_ConstevalOverflow
+                or ErrorCode.ERR_ConstevalEvaluationFailed
+                or ErrorCode.ERR_ConstevalSwitchPatternNotAllowed
                     => false,
             };
 #pragma warning restore CS8524 // The switch expression does not handle some values of its input type (it is not exhaustive) involving an unnamed enum value.

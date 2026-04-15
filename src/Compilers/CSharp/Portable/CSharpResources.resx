@@ -8315,4 +8315,106 @@ To remove the warning, you can use /reference instead (set the Embed Interop Typ
   <data name="ERR_UnionConstructorCallsDefaultConstructor" xml:space="preserve">
     <value>A constructor declared in a 'union' declaration must have a 'this' initializer that calls a synthesized constructor or an explicitly declared constructor.</value>
   </data>
+  <data name="ERR_BadConstevalItem" xml:space="preserve">
+    <value>Item cannot be statically evaluated yet, only methods can</value>
+  </data>
+  <data name="ERR_NoConstevalConstructor" xml:space="preserve">
+    <value>Constructor cannot be statically evaluated </value>
+  </data>
+  <data name="ERR_NoConstevalGenericMethod" xml:space="preserve">
+    <value>Generic methods cannot be statically evaluated</value>
+  </data>
+  <data name="ERR_NoConstevalDestructor" xml:space="preserve">
+    <value>Destructor cannot be statically evaluated</value>
+  </data>
+  <data name="ERR_ConstevalParameterMustBePrimitive" xml:space="preserve">
+    <value>Consteval method parameter '{0}' must be of a primitive type (bool, char, string, numeric types, enum, decimal, nint/nuint)</value>
+  </data>
+  <data name="ERR_ConstevalReturnTypeMustBePrimitive" xml:space="preserve">
+    <value>Consteval method return type '{0}' must be a primitive type (bool, char, string, numeric types, enum, decimal, nint/nuint)</value>
+  </data>
+  <data name="ERR_ConstevalParameterCannotBeRefOutIn" xml:space="preserve">
+    <value>Consteval method parameter '{0}' cannot have '{1}' modifier</value>
+  </data>
+  <data name="ERR_ConstevalParameterCannotBeParams" xml:space="preserve">
+    <value>Consteval method parameter '{0}' cannot be a params parameter</value>
+  </data>
+  <data name="ERR_ConstevalParameterCannotBeDynamic" xml:space="preserve">
+    <value>Consteval method parameter '{0}' cannot be of type 'dynamic'</value>
+  </data>
+  <data name="ERR_ConstevalReturnTypeCannotBeDynamic" xml:space="preserve">
+    <value>Consteval method return type cannot be 'dynamic'</value>
+  </data>
+  <data name="ERR_ConstevalFunctionCannotBeAsync" xml:space="preserve">
+    <value>Consteval method '{0}' cannot be async</value>
+  </data>
+  <data name="ERR_ConstevalFunctionCannotBeUnsafe" xml:space="preserve">
+    <value>Consteval method '{0}' cannot be unsafe</value>
+  </data>
+  <data name="ERR_ConstevalFunctionCannotBeGeneric" xml:space="preserve">
+    <value>Consteval method '{0}' cannot be generic</value>
+  </data>
+  <data name="ERR_ConstevalLocalMustBePrimitive" xml:space="preserve">
+    <value>Consteval method local variable '{0}' must be of a primitive type (bool, char, string, numeric types, enum, decimal, nint/nuint)</value>
+  </data>
+  <data name="ERR_ConstevalCannotReferenceGenericType" xml:space="preserve">
+    <value>Consteval method cannot reference type parameter '{0}'</value>
+  </data>
+  <data name="ERR_ConstevalCanOnlyAccessConstFields" xml:space="preserve">
+    <value>Consteval method can only access const fields ('{0}' is not const)</value>
+  </data>
+  <data name="ERR_ConstevalCannotUseNewExpression" xml:space="preserve">
+    <value>Consteval method cannot use 'new' expressions</value>
+  </data>
+  <data name="ERR_ConstevalCannotUseTryCatchFinally" xml:space="preserve">
+    <value>Consteval method cannot use try, catch, or finally blocks</value>
+  </data>
+  <data name="ERR_ConstevalCannotUseThrow" xml:space="preserve">
+    <value>Consteval method cannot use 'throw' statements</value>
+  </data>
+  <data name="ERR_ConstevalUnsupportedControlFlow" xml:space="preserve">
+    <value>Consteval method cannot use '{0}' statements (only if, switch, for, while, do-while, break, continue, and return are supported)</value>
+  </data>
+  <data name="ERR_ConstevalCanOnlyCallConsteval" xml:space="preserve">
+    <value>Consteval method can only call other consteval methods ('{0}' is not consteval)</value>
+  </data>
+  <data name="ERR_ConstevalCannotUseUserDefinedOperator" xml:space="preserve">
+    <value>Consteval method cannot use user-defined operators (only built-in operators are supported)</value>
+  </data>
+  <data name="ERR_ConstevalCannotUseTypeOf" xml:space="preserve">
+    <value>Consteval method cannot use 'typeof' operator</value>
+  </data>
+  <data name="ERR_ConstevalCannotUseSizeOf" xml:space="preserve">
+    <value>Consteval method cannot use 'sizeof' operator</value>
+  </data>
+  <data name="ERR_ConstevalHasNoBody" xml:space="preserve">
+    <value>Consteval method must be defined at declaration point</value>
+  </data>
+  <data name="ERR_ConstevalCannotBeExtern" xml:space="preserve">
+    <value>Consteval method '{0}' cannot be extern</value>
+  </data>
+  <data name="ERR_ConstevalCannotBePartial" xml:space="preserve">
+    <value>Consteval method '{0}' cannot be partial</value>
+  </data>
+  <data name="ERR_ConstevalCannotHavePolymorphicModifiers" xml:space="preserve">
+    <value>Consteval method '{0}' cannot have polymorphic modifiers (virtual, abstract, override, sealed, new)</value>
+  </data>
+  <data name="ERR_ConstevalRecursionDepthExceeded" xml:space="preserve">
+    <value>Consteval evaluation of '{0}' exceeded the maximum recursion depth ({1})</value>
+  </data>
+  <data name="ERR_ConstevalLoopIterationLimitExceeded" xml:space="preserve">
+    <value>Consteval evaluation of '{0}' exceeded the maximum loop iteration limit ({1})</value>
+  </data>
+  <data name="ERR_ConstevalDivisionByZero" xml:space="preserve">
+    <value>Consteval evaluation of '{0}' caused a division by zero</value>
+  </data>
+  <data name="ERR_ConstevalOverflow" xml:space="preserve">
+    <value>Consteval evaluation of '{0}' caused an arithmetic overflow</value>
+  </data>
+  <data name="ERR_ConstevalEvaluationFailed" xml:space="preserve">
+    <value>Consteval evaluation of '{0}' failed to produce a constant value</value>
+  </data>
+  <data name="ERR_ConstevalSwitchPatternNotAllowed" xml:space="preserve">
+    <value>Consteval switch may only use constant patterns; pattern matching is not allowed</value>
+  </data>
 </root>
