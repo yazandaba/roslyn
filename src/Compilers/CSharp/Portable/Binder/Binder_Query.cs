@@ -327,7 +327,7 @@ namespace Microsoft.CodeAnalysis.CSharp
             return result.Update(
                 result.ReceiverOpt, result.InitialBindingReceiverIsSubjectToCloning, result.Method, arguments.ToImmutableAndFree(), argumentNamesOpt: default,
                 argumentRefKindsOpt: default, result.IsDelegateCall, result.Expanded, result.InvokedAsExtensionMethod,
-                argsToParams.ToImmutableAndFree(), defaultArguments, result.ResultKind, result.OriginalMethodsOpt, result.Type);
+                argsToParams.ToImmutableAndFree(), defaultArguments, result.ConstantValueOpt, result.ResultKind, result.OriginalMethodsOpt, result.Type);
         }
 
         private void ReduceQuery(QueryTranslationState state, BindingDiagnosticBag diagnostics)

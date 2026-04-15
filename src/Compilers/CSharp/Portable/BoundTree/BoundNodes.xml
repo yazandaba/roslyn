@@ -1844,6 +1844,8 @@
     <Field Name="InvokedAsExtensionMethod" Type="bool"/>
     <Field Name="ArgsToParamsOpt" Type="ImmutableArray&lt;int&gt;" Null="allow"/>
     <Field Name="DefaultArguments" Type="BitVector" />
+    <!-- The constant value of the call, valid only for consteval functions -->
+    <Field Name="ConstantValueOpt" Type="ConstantValue?" PropertyOverrides="true"/>
 
     <!--
     Result kind for the invocation. Never LookupResultKind.MemberGroup or LookupResultKind.StaticInstanceMismatch.
